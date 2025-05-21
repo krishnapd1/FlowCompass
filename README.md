@@ -22,7 +22,7 @@ pip install flowcompass
 ## ⚙️ Command-Line Usage
 
 ```bash
-flowcompass --source-dir ./PATH_OF_SOURCE_DIR --function-name FUNCTION_NAME
+flowcompass --source-dir ./PATH_OF_SOURCE_DIR --function-name FUNCTION_NAME --generate-html
 ```
 Note:- PATH_OF_SOURCE_DIR is the path of your project directory and the FUNCTION_NAME is your name of your project function. 
 
@@ -36,6 +36,7 @@ Note:- PATH_OF_SOURCE_DIR is the path of your project directory and the FUNCTION
 | `--skip-threaded` | Skip threaded/parallel calls | `False` |
 | `--output-json` | Output path for JSON report | `<function_name>_report.json` |
 | `--print-tree` | Print tree to stdout | `True` |
+| `--generate-html` | Generates the HTML page | `False` |
 
 ---
 

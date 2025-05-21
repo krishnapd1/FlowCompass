@@ -5,4 +5,4 @@
 - A **nested JSON report** with detailed metadata for each function.
 - A **html flow chart** with the function call hierarchy and detailed codeflow."""
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
