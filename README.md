@@ -22,10 +22,9 @@ pip install flowcompass
 ## ⚙️ Command-Line Usage
 
 ```bash
-flowcompass \
-  --source-dir ./my_project \
-  --function-name create_book_api
+flowcompass --source-dir ./PATH_OF_SOURCE_DIR --function-name FUNCTION_NAME
 ```
+Note:- PATH_OF_SOURCE_DIR is the path of your project directory and the FUNCTION_NAME is your name of your project function. 
 
 ### Available Flags
 

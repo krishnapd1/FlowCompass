@@ -70,7 +70,7 @@ class FunctionIndexer:
                         
                         # Index functions and methods
                         for node in ast.walk(tree):
-                            if isinstance(node, ast.FunctionDef):
+                            if isinstance(node, ast.FunctionDef) or isinstance(node, ast.AsyncFunctionDef):
                                 qualified_name = node.name
                                 docstring = ast.get_docstring(node) or ""
                                 code = ast.get_source_segment(source, node)
@@ -359,7 +359,7 @@ css_styles = """
         }
 
         .btn-primary:hover {
-            background-color: rgba(255,255,255,0.9);
+            background-color: black;
         }
 
         .btn-success {
@@ -906,7 +906,7 @@ def generate_html(source, output_path=None):
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="code-content-{func_id}" role="tabpanel">
                             <div class="code-content">
-                                <pre><code class="python">{html.escape(func_code)}</code></pre>
+                                <pre class="line-numbers" data-start="{lineno}"><code class="language-python">{html.escape(func_code)}</code></pre>
                             </div>
                         </div>
                         {f'''
@@ -959,6 +959,10 @@ def generate_html(source, output_path=None):
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
         <!-- Animate.css for animations -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet" />
+        <!-- Line Numbers CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+
         <style>
             {css_styles}
         </style>
@@ -975,7 +979,7 @@ def generate_html(source, output_path=None):
                     <h1 style="margin: 0; font-size: 1.25rem; font-weight: bold;">Flow Compass</h1>
                 </div>
                 <div class="header-actions">
-                    <a class="btn btn-primary" href="https://github.com/Krishnaggarwal9" target="_blank" rel="noopener noreferrer">
+                    <a class="btn btn-primary" href="https://github.com/krishnapd1" target="_blank" rel="noopener noreferrer">
                         <i class="fa-brands fa-github" style="margin-right: 8px;"></i>
                         <span>Github</span>
                     </a>
@@ -1050,15 +1054,20 @@ def generate_html(source, output_path=None):
     html_content += """
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
+        <!-- Prism.js Core Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <!-- Prism.js Python Language -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+        <!-- Prism.js Line Numbers Plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
         <script>
             function copyToClipboard(funcId) {
-                const codeElem = document.querySelector(`#code-content-\${funcId} code`);
+                const codeElem = document.querySelector(`#code-content-${funcId} code`);
                 if (codeElem) {
                     const textToCopy = codeElem.textContent;
                     navigator.clipboard.writeText(textToCopy).then(
                         function() {
-                            const copyBtn = document.getElementById(`copy-btn-\${funcId}`);
+                            const copyBtn = document.getElementById(`copy-btn-${funcId}`);
                             const originalHTML = copyBtn.innerHTML;
                             copyBtn.innerHTML = '<i class="fas fa-check"></i>';
                             copyBtn.classList.remove('btn-outline-secondary');
